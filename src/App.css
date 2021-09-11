@@ -4,22 +4,17 @@
 }
 
 html {
-  overflow:   scroll;
+  overflow: scroll;
 }
 ::-webkit-scrollbar {
-    width: 0px;
-    background: transparent; /* make scrollbar transparent */
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
 }
 
 .App {
   text-align: center;
   height: 99vh;
-
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+  position: relative;
 }
 
 iframe {
@@ -33,8 +28,22 @@ iframe::-webkit-scrollbar {
   background: transparent; /* make scrollbar transparent */
 }
 
-#header, #footer {
-  background: blue;
+#header,
+#footer {
+}
+
+#header {
+  position: absolute;
+}
+
+#calculator {
+  margin-top: 50px;
+}
+
+@media (min-width: 50em) {
+  #calculator {
+    margin-top: 120px;
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
