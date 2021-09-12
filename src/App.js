@@ -1,44 +1,58 @@
 import './App.css';
+import { useState, useEffect } from 'react';
+var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
+var eventer = window[eventMethod];
+var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
 function App() {
-  const iframeObject = {
-    header: {
+  const [scrollSize, setScrollSize] = useState();
+  const [iframeObject, setIframeObject] = useState([
+    {
+      id: 1,
       URL: 'https://roi-calculator-header.vercel.app/',
-      fixedHeight: '410px',
+      fixedHeightWeb: '410px',
+      uniqueName: 'header',
     },
-    footer: {
-      URL: '',
-      fixedHeight: '70px',
+    {
+      id: 2,
+      URL: 'http://localhost:3001/',
+      fixedHeightWeb: '490px',
+      uniqueName: 'calculator',
     },
-  };
+    {
+      id: 3,
+      URL: 'https://roi-calculator-footer.vercel.app/',
+      fixedHeightWeb: '400px',
+      uniqueName: 'footer',
+    },
+  ]);
 
-  const { header, footer } = iframeObject;
+  useEffect(() => {
+    eventer(messageEvent, function (e) {
+      const iframeOrigin = 'http://localhost:3001';
+      if (e.origin === iframeOrigin) {
+        setScrollSize(e.data);
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    iframeObject[1].fixedHeightWeb = scrollSize + 'px';
+    setIframeObject([...iframeObject]);
+  }, [scrollSize]);
 
   return (
     <div className='App'>
-      <iframe
-        src={header.URL}
-        title='header'
-        scrolling='no'
-        id='header'
-        width='100%'
-        height={header.fixedHeight}
-      ></iframe>
-      <iframe
-        title='calculator'
-        id='calculator'
-        src='https://kind-shockley-bb822e.netlify.app/'
-        width='100%'
-        height='100%'
-      ></iframe>
-      <iframe
-        src={footer.URL}
-        title='footer'
-        scrolling='no'
-        id='footer'
-        width='100%'
-        height={footer.fixedHeight}
-      ></iframe>
+      {iframeObject.map((iframe) => (
+        <iframe
+          src={iframe.URL}
+          title={iframe.uniqueName}
+          scrolling='no'
+          id={iframe.uniqueName}
+          width='100%'
+          height={iframe.fixedHeightWeb}
+        ></iframe>
+      ))}
     </div>
   );
 }
