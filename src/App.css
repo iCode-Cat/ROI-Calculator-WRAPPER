@@ -8,8 +8,9 @@ html {
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-  min-height: 99vh;
   position: relative;
 }
 

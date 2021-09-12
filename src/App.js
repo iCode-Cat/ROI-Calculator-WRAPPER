@@ -5,7 +5,7 @@ var eventer = window[eventMethod];
 var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
 function App() {
-  const [scrollSize, setScrollSize] = useState();
+  const [scrollSizeApp, setScrollApp] = useState();
   const [iframeObject, setIframeObject] = useState([
     {
       id: 1,
@@ -15,7 +15,7 @@ function App() {
     },
     {
       id: 2,
-      URL: 'http://localhost:3001/',
+      URL: 'https://kind-shockley-bb822e.netlify.app',
       fixedHeightWeb: '490px',
       uniqueName: 'calculator',
     },
@@ -29,17 +29,20 @@ function App() {
 
   useEffect(() => {
     eventer(messageEvent, function (e) {
-      const iframeOrigin = 'http://localhost:3001';
-      if (e.origin === iframeOrigin) {
-        setScrollSize(e.data);
+      const iframeOriginHeader = iframeObject[0].URL;
+      const iframeOriginApp = iframeObject[1].URL;
+      const iframeOriginFooter = iframeObject[2].URL;
+
+      if (e.origin === iframeOriginApp) {
+        setScrollApp(e.data);
       }
     });
   }, []);
 
   useEffect(() => {
-    iframeObject[1].fixedHeightWeb = scrollSize + 'px';
+    iframeObject[1].fixedHeightWeb = scrollSizeApp + 'px';
     setIframeObject([...iframeObject]);
-  }, [scrollSize]);
+  }, [scrollSizeApp]);
 
   return (
     <div className='App'>
