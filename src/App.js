@@ -11,7 +11,7 @@ function App() {
   const [iframeObject, setIframeObject] = useState([
     {
       id: 1,
-      URL: 'https://roi-calculator-header.vercel.app/',
+      URL: 'https://roi-calculator-header.vercel.app',
       fixedHeightWeb: '410px',
       uniqueName: 'header',
     },
@@ -23,7 +23,7 @@ function App() {
     },
     {
       id: 3,
-      URL: 'https://roi-calculator-footer.vercel.app/',
+      URL: 'https://roi-calculator-footer.vercel.app',
       fixedHeightWeb: '400px',
       uniqueName: 'footer',
     },
