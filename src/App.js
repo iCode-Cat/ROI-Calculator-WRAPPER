@@ -11,19 +11,19 @@ function App() {
   const [iframeObject, setIframeObject] = useState([
     {
       id: 1,
-      URL: 'http://localhost:3001',
+      URL: 'https://roi-calculator-header.vercel.app/',
       fixedHeightWeb: '410px',
       uniqueName: 'header',
     },
     {
       id: 2,
-      URL: 'http://localhost:3002',
+      URL: 'https://kind-shockley-bb822e.netlify.app',
       fixedHeightWeb: '490px',
       uniqueName: 'calculator',
     },
     {
       id: 3,
-      URL: 'http://localhost:3003',
+      URL: 'https://roi-calculator-footer.vercel.app/',
       fixedHeightWeb: '400px',
       uniqueName: 'footer',
     },
