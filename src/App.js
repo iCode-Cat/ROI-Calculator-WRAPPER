@@ -6,35 +6,42 @@ var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
 function App() {
   const [scrollSizeApp, setScrollApp] = useState();
+  const [scrollSizeHeader, setScrollHeader] = useState();
+  const [scrollSizeFooter, setScrollFooter] = useState();
   const [iframeObject, setIframeObject] = useState([
     {
       id: 1,
-      URL: 'https://roi-calculator-header.vercel.app/',
+      URL: 'http://localhost:3001',
       fixedHeightWeb: '410px',
       uniqueName: 'header',
     },
     {
       id: 2,
-      URL: 'https://kind-shockley-bb822e.netlify.app',
+      URL: 'http://localhost:3002',
       fixedHeightWeb: '490px',
       uniqueName: 'calculator',
     },
     {
       id: 3,
-      URL: 'https://roi-calculator-footer.vercel.app/',
+      URL: 'http://localhost:3003',
       fixedHeightWeb: '400px',
       uniqueName: 'footer',
     },
   ]);
 
   useEffect(() => {
+    const iframeOriginHeader = iframeObject[0].URL;
+    const iframeOriginApp = iframeObject[1].URL;
+    const iframeOriginFooter = iframeObject[2].URL;
     eventer(messageEvent, function (e) {
-      const iframeOriginHeader = iframeObject[0].URL;
-      const iframeOriginApp = iframeObject[1].URL;
-      const iframeOriginFooter = iframeObject[2].URL;
-
       if (e.origin === iframeOriginApp) {
         setScrollApp(e.data);
+      }
+      if (e.origin === iframeOriginHeader) {
+        setScrollHeader(e.data);
+      }
+      if (e.origin === iframeOriginFooter) {
+        setScrollFooter(e.data);
       }
     });
   }, []);
@@ -43,6 +50,16 @@ function App() {
     iframeObject[1].fixedHeightWeb = scrollSizeApp + 'px';
     setIframeObject([...iframeObject]);
   }, [scrollSizeApp]);
+
+  useEffect(() => {
+    iframeObject[0].fixedHeightWeb = scrollSizeHeader + 'px';
+    setIframeObject([...iframeObject]);
+  }, [scrollSizeHeader]);
+
+  useEffect(() => {
+    iframeObject[2].fixedHeightWeb = scrollSizeFooter + 'px';
+    setIframeObject([...iframeObject]);
+  }, [scrollSizeFooter]);
 
   return (
     <div className='App'>
