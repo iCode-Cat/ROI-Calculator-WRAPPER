@@ -16,13 +16,6 @@ html {
 
 iframe {
   border: none;
-  outline: none;
-  overflow: hidden;
-}
-
-iframe::-webkit-scrollbar {
-  width: 0px;
-  background: transparent; /* make scrollbar transparent */
 }
 
 #header,
@@ -36,6 +29,7 @@ iframe::-webkit-scrollbar {
 
 #calculator {
   margin-top: 50px;
+  max-height: 600px;
 }
 
 @media (min-width: 50em) {
