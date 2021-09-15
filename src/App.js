@@ -20,7 +20,7 @@ function App() {
     },
     {
       id: 2,
-      URL: 'https://kind-shockley-bb822e.netlify.app/',
+      URL: 'https://kind-shockley-bb822e.netlify.app',
       fixedHeightWeb: '890px',
       uniqueName: 'calculator',
     },
