@@ -1,8 +1,11 @@
 import './App.css';
-import { useState, useEffect } from 'react';
-var eventMethod = window.addEventListener ? 'addEventListener' : 'attachEvent';
-var eventer = window[eventMethod];
-var messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
+import { useState, useEffect, useRef } from 'react';
+
+const eventMethod = window.addEventListener
+  ? 'addEventListener'
+  : 'attachEvent';
+const eventer = window[eventMethod];
+const messageEvent = eventMethod === 'attachEvent' ? 'onmessage' : 'message';
 
 function App() {
   const [scrollSizeApp, setScrollApp] = useState();
@@ -34,8 +37,19 @@ function App() {
     const iframeOriginApp = iframeObject[1].URL;
     const iframeOriginFooter = iframeObject[2].URL;
     eventer(messageEvent, function (e) {
+      // Only when steps changes
+      if (e.origin === iframeOriginApp && e.data.step) {
+        // console.log(e.data);
+        console.log(e.data);
+        setTimeout(() => {
+          window.scrollTo({ top: e.data.scrollSize - 700, behavior: 'smooth' });
+        }, 500);
+      }
+
       if (e.origin === iframeOriginApp) {
-        setScrollApp(e.data);
+        if (!e.data.step) {
+          setScrollApp(e.data);
+        }
       }
       if (e.origin === iframeOriginHeader) {
         setScrollHeader(e.data);
@@ -49,15 +63,6 @@ function App() {
   useEffect(() => {
     iframeObject[1].fixedHeightWeb = scrollSizeApp + 'px';
     setIframeObject([...iframeObject]);
-    document.addEventListener(
-      'wheel',
-      function (e) {
-        e.preventDefault(); // Prevent user scroll during page jump
-      },
-      {
-        passive: false,
-      }
-    );
   }, [scrollSizeApp]);
 
   useEffect(() => {
@@ -72,13 +77,14 @@ function App() {
 
   return (
     <div className='App'>
-      {iframeObject.map((iframe) => (
+      {iframeObject.map((iframe, i) => (
         <iframe
           src={iframe.URL}
           title={iframe.uniqueName}
           id={iframe.uniqueName}
           width='100%'
           height={iframe.fixedHeightWeb}
+          scrolling='no'
         ></iframe>
       ))}
     </div>

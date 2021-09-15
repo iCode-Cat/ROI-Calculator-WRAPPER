@@ -29,7 +29,6 @@ iframe {
 
 #calculator {
   margin-top: 50px;
-  max-height: 600px;
 }
 
 @media (min-width: 50em) {
