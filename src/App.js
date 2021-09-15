@@ -20,7 +20,7 @@ function App() {
     },
     {
       id: 2,
-      URL: 'http://localhost:3001',
+      URL: 'https://kind-shockley-bb822e.netlify.app/',
       fixedHeightWeb: '890px',
       uniqueName: 'calculator',
     },
@@ -42,7 +42,7 @@ function App() {
         // console.log(e.data);
         console.log(e.data);
         setTimeout(() => {
-          window.scrollTo({ top: e.data.scrollSize - 700, behavior: 'smooth' });
+          window.scrollTo({ top: e.data.scrollSize, behavior: 'smooth' });
         }, 500);
       }
 
@@ -79,6 +79,7 @@ function App() {
     <div className='App'>
       {iframeObject.map((iframe, i) => (
         <iframe
+          key={i}
           src={iframe.URL}
           title={iframe.uniqueName}
           id={iframe.uniqueName}
