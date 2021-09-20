@@ -1,5 +1,5 @@
 import './App.css';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const eventMethod = window.addEventListener
   ? 'addEventListener'
@@ -32,7 +32,20 @@ function App() {
     },
   ]);
 
+  const metadata = {
+    page_title: 'Information Risks Assessment',
+    page_favicon: '/cognni_favicon.png',
+  };
+
+  const getFavIcon = () => {
+    return document.querySelector('#favicon');
+  };
+
   useEffect(() => {
+    const favicon = getFavIcon();
+    // Update the page metadata
+    document.title = metadata.page_title;
+    favicon.href = '/cognni_favicon.png';
     const iframeOriginHeader = iframeObject[0].URL;
     const iframeOriginApp = iframeObject[1].URL;
     const iframeOriginFooter = iframeObject[2].URL;
