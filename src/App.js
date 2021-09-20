@@ -93,7 +93,7 @@ function App() {
         <link id='favicon' rel='icon' href={metadata.page_favicon} />
         <meta name='description' content={metadata.sub_title} />
       </Helmet>
-      ;
+
       {iframeObject.map((iframe, i) => (
         <iframe
           key={i}
