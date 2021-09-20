@@ -1,5 +1,6 @@
 import './App.css';
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 
 const eventMethod = window.addEventListener
   ? 'addEventListener'
@@ -35,17 +36,14 @@ function App() {
   const metadata = {
     page_title: 'Information Risks Assessment',
     page_favicon: '/cognni_favicon.png',
-  };
-
-  const getFavIcon = () => {
-    return document.querySelector('#favicon');
+    title: 'Information Risk Assessment',
+    sub_title: 'See how much information risks are costing you',
   };
 
   useEffect(() => {
-    const favicon = getFavIcon();
     // Update the page metadata
-    document.title = metadata.page_title;
-    favicon.href = '/cognni_favicon.png';
+    // document.title = metadata.page_title;
+    // favicon.href = '/cognni_favicon.png';
     const iframeOriginHeader = iframeObject[0].URL;
     const iframeOriginApp = iframeObject[1].URL;
     const iframeOriginFooter = iframeObject[2].URL;
@@ -90,6 +88,12 @@ function App() {
 
   return (
     <div className='App'>
+      <Helmet>
+        <title>{metadata.page_title}</title>
+        <link id='favicon' rel='icon' href={metadata.page_favicon} />
+        <meta name='description' content={metadata.sub_title} />
+      </Helmet>
+      ;
       {iframeObject.map((iframe, i) => (
         <iframe
           key={i}
