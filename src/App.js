@@ -21,7 +21,7 @@ function App() {
     },
     {
       id: 2,
-      URL: 'https://kind-shockley-bb822e.netlify.app',
+      URL: 'http://localhost:3000',
       fixedHeightWeb: '890px',
       uniqueName: 'calculator',
     },
@@ -32,6 +32,13 @@ function App() {
       uniqueName: 'footer',
     },
   ]);
+
+  const sendMessageChild = (msg, url) => {
+    const App = document.querySelector('#calculator');
+    if (App === undefined) return;
+    App.contentWindow.postMessage(msg, url);
+    console.log('posted');
+  };
 
   const metadata = {
     page_title: 'Information Risks Assessment',
@@ -50,8 +57,6 @@ function App() {
     eventer(messageEvent, function (e) {
       // Only when steps changes
       if (e.origin === iframeOriginApp && e.data.step) {
-        // console.log(e.data);
-        console.log(e.data);
         setTimeout(() => {
           window.scrollTo({ top: e.data.scrollSize, behavior: 'smooth' });
         }, 500);
@@ -85,6 +90,10 @@ function App() {
     iframeObject[2].fixedHeightWeb = scrollSizeFooter + 'px';
     setIframeObject([...iframeObject]);
   }, [scrollSizeFooter]);
+
+  useEffect(() => {
+    sendMessageChild('defaultJson', '*');
+  }, [iframeObject]);
 
   return (
     <div className='App'>
