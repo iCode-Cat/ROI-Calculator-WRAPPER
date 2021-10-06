@@ -21,7 +21,7 @@ function App() {
     },
     {
       id: 2,
-      URL: 'http://localhost:3000',
+      URL: 'https://calc-embeded.cognni.ai',
       fixedHeightWeb: '890px',
       uniqueName: 'calculator',
     },
