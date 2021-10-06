@@ -99,7 +99,7 @@ function App() {
     }, 100);
     setTimeout(() => {
       clearInterval(clear);
-    }, 1000);
+    }, 5000);
   }, [dataSent]);
 
   return (
