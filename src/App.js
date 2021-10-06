@@ -12,6 +12,7 @@ function App() {
   const [scrollSizeApp, setScrollApp] = useState();
   const [scrollSizeHeader, setScrollHeader] = useState();
   const [scrollSizeFooter, setScrollFooter] = useState();
+  const [dataSent, setDataSent] = useState(false);
   const [iframeObject, setIframeObject] = useState([
     {
       id: 1,
@@ -21,7 +22,7 @@ function App() {
     },
     {
       id: 2,
-      URL: 'https://calc-embeded.cognni.ai',
+      URL: 'http://localhost:3000',
       fixedHeightWeb: '890px',
       uniqueName: 'calculator',
     },
@@ -37,6 +38,7 @@ function App() {
     const App = document.querySelector('#calculator');
     if (App === undefined) return;
     App.contentWindow.postMessage(msg, url);
+    setDataSent(true);
     console.log('posted');
   };
 
@@ -92,8 +94,13 @@ function App() {
   }, [scrollSizeFooter]);
 
   useEffect(() => {
-    sendMessageChild('defaultJson', '*');
-  }, [iframeObject]);
+    const clear = setInterval(() => {
+      sendMessageChild('defaultJson', '*');
+    }, 100);
+    setTimeout(() => {
+      clearInterval(clear);
+    }, 1000);
+  }, [dataSent]);
 
   return (
     <div className='App'>
