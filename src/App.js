@@ -12,6 +12,7 @@ function App() {
   const [scrollSizeApp, setScrollApp] = useState();
   const [scrollSizeHeader, setScrollHeader] = useState();
   const [scrollSizeFooter, setScrollFooter] = useState();
+  const [dataSent, setDataSent] = useState(false);
   const [iframeObject, setIframeObject] = useState([
     {
       id: 1,
@@ -37,6 +38,7 @@ function App() {
     const App = document.querySelector('#calculator');
     if (App === undefined) return;
     App.contentWindow.postMessage(msg, url);
+    setDataSent(true);
     console.log('posted');
   };
 
@@ -92,8 +94,13 @@ function App() {
   }, [scrollSizeFooter]);
 
   useEffect(() => {
-    sendMessageChild('default', '*');
-  }, [iframeObject]);
+    const clear = setInterval(() => {
+      sendMessageChild('default', '*');
+    }, 100);
+    setTimeout(() => {
+      clearInterval(clear);
+    }, 5000);
+  }, [dataSent]);
 
   return (
     <div className='App'>
