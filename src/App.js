@@ -92,7 +92,7 @@ function App() {
   }, [scrollSizeFooter]);
 
   useEffect(() => {
-    sendMessageChild('defaultJson', '*');
+    sendMessageChild('default', '*');
   }, [iframeObject]);
 
   return (
